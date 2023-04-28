@@ -5,13 +5,15 @@ from aiogram.dispatcher import filters
 import time
 
 # Токен бота
-TOKEN = 'TOKEN_HERE'
-admins = []
+TOKEN = 'TOKEN HERE'
+admins = ['YOUR TELEGRAM ID HERE']
 
 string_check_start = '[minecraft/DedicatedServer]: Done'
 string_check_stop = 'All dimensions are saved'
 string_check_players = 'players online'
 string_check_error = 'Что-то произошло. Мне не удалось вывести ответ сервера'
+
+path_to_run_file = 'YOUT PATH HERE'
 
 # Инициализируем бота и диспатчер
 bot = Bot(token=TOKEN)
@@ -49,7 +51,7 @@ async def start_minecraft_server(userId):
 
         # Запускаем команду в терминале, выводим логи в out.log и err.log
         with open('out.log','w') as out, open('err.log','w') as err:
-            process = subprocess.Popen(['/home/subnak/minecraft/run.sh'], stdout=out, stdin=subprocess.PIPE, stderr=err, encoding='utf-8', text=True, universal_newlines=True)
+            process = subprocess.Popen([path_to_run_file], stdout=out, stdin=subprocess.PIPE, stderr=err, encoding='utf-8', text=True, universal_newlines=True)
 
         # Даем глобальный доступ в нашему процессу
         global server
