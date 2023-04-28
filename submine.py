@@ -7,13 +7,12 @@ import time
 # Токен бота
 TOKEN = 'TOKEN HERE'
 admins = ['YOUR TELEGRAM ID HERE']
+path_to_run_file = 'YOUT PATH HERE'
 
 string_check_start = '[minecraft/DedicatedServer]: Done'
 string_check_stop = 'All dimensions are saved'
 string_check_players = 'players online'
 string_check_error = 'Что-то произошло. Мне не удалось вывести ответ сервера'
-
-path_to_run_file = 'YOUT PATH HERE'
 
 # Инициализируем бота и диспатчер
 bot = Bot(token=TOKEN)
