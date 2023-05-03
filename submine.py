@@ -10,7 +10,7 @@ admins = ['YOUR TELEGRAM ID HERE']
 path_to_run_file = 'YOUT PATH HERE'
 
 string_check_start = '[minecraft/DedicatedServer]: Done'
-string_check_stop = 'All dimensions are saved'
+string_check_stop = '[minecraft/MinecraftServer]: ThreadedAnvilChunkStorage: All dimensions are saved'
 string_check_players = 'players online'
 string_check_error = 'Что-то произошло. Мне не удалось вывести ответ сервера'
 
@@ -28,7 +28,7 @@ def check_reply(filename, string_check):
 
         # Инвертируем порядок строк (чтобы ловить свежий ответ)
         lines = lines[::-1]
-
+        
         # Поиск последней строки с заданной
         for i in range(len(lines)):
             if string_check in lines[i]:
@@ -37,7 +37,7 @@ def check_reply(filename, string_check):
                 break
 
         if any(string_check in line for line in lines):
-            return "".join(lines)
+            return "".join(lines[0])
         else:
             return string_check_error
 
@@ -78,8 +78,8 @@ async def stop_minecraft_server(userId):
         # Усыпляем ненадолго, чтобы сервер успел остановиться
         time.sleep(30)
         outputs = check_reply('out.log', string_check_stop)
-
-        await bot.send_message(chat_id=userId, text=outputs[0])
+        
+        await bot.send_message(chat_id=userId, text=outputs)
     else:
         await bot.send_message(chat_id=userId, text='Сервер Minecraft не запущен')    
 
@@ -129,7 +129,6 @@ async def minecraft_command(message: types.Message):
 @dp.throttled(rate=60)
 async def stop_server(message: types.Message):
     await stop_minecraft_server(message.from_user.id)
-    await message.reply('Сервер Minecraft остановлен. Все измерения сохранены')
 
 # Запускаем бота
 if __name__ == '__main__':
